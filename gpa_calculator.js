@@ -81,9 +81,9 @@ function calculateGPA() {
     let cs_grade = (cs_internal + cs_lab) / 10;
     let code_grade = (code_internal + (code_sem * 40 / 60)) / 10;
 
-    let final_grade = (4 * (ep_grade + code_grade)) + (3 * (psup_grade + es_grade + egd_grade)) + (2 * (tec_grade)) + (1 * (cs_grade)) / 20;
+    let final_grade = ((4 * (ep_grade + code_grade)) + (3 * (psup_grade + es_grade + egd_grade)) + (2 * (tec_grade)) + (1 * (cs_grade))) / 20;
 
-    let max_score = 2000;
+    let max_score = 10;
     let percentage = (final_grade / max_score) * 100;
 
     // Display results, formatting to 2 decimal places for neatness
