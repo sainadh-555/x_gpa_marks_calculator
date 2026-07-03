@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic GPA Calculator</title>
+    <!-- Modern Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="gpa_calculator.css">
+</head>
+
+<body>
+
+    <div class="container" id="main-container">
+        
+        <!-- LOGIN SECTION -->
+        <div id="login-section" class="login-wrapper">
+            <div class="login-box">
+                <div class="login-icon">
+                    <svg viewBox="0 0 24 24" width="64" height="64" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <h2>Student Portal</h2>
+                <p>Please enter your registration number to access the GPA Calculator.</p>
+                <div class="input-group" style="margin-top: 30px;">
+                    <input type="text" id="reg_input" placeholder="e.g. 251FA00123" onkeypress="handleLoginKeyPress(event)">
+                </div>
+                <div id="login_error" class="error-msg" style="display: none;">Invalid Registration Number. It must start with '251fa'.</div>
+                <button class="calc-btn login-btn" style="margin-top: 20px;" onclick="checkLogin()">Access Calculator</button>
+            </div>
+        </div>
+
+        <!-- CALCULATOR SECTION -->
+        <div id="calculator-section" style="display: none;">
+            <h1>GPA Calculator</h1>
+            <p class="subtitle">Enter your marks below to calculate your final grade.</p>
+
+            <div class="subjects-grid">
+            <!-- 1. PSUP -->
+            <div class="subject-card">
+                <h3>1. PSUP <span class="credit-tag">3 Credits</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="psup_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Lab</label>
+                        <input type="number" id="psup_lab" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Sem</label>
+                        <input type="number" id="psup_sem" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. TEC -->
+            <div class="subject-card">
+                <h3>2. TEC <span class="credit-tag">2 Credits</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="tec_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Lab</label>
+                        <input type="number" id="tec_lab" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Sem</label>
+                        <input type="number" id="tec_sem" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. EP -->
+            <div class="subject-card">
+                <h3>3. EP <span class="credit-tag">4 Credits</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="ep_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Lab</label>
+                        <input type="number" id="ep_lab" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Sem</label>
+                        <input type="number" id="ep_sem" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. EGD -->
+            <div class="subject-card">
+                <h3>4. EGD <span class="credit-tag">3 Credits</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="egd_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Lab</label>
+                        <input type="number" id="egd_lab" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. ES -->
+            <div class="subject-card">
+                <h3>5. ES <span class="credit-tag">3 Credits</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="es_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Lab</label>
+                        <input type="number" id="es_lab" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. CS -->
+            <div class="subject-card">
+                <h3>6. CS <span class="credit-tag">1 Credit</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="cs_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Lab</label>
+                        <input type="number" id="cs_lab" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. CODE -->
+            <div class="subject-card">
+                <h3>7. CODE <span class="credit-tag">4 Credits</span></h3>
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <label>Internal</label>
+                        <input type="number" id="code_int" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Sem</label>
+                        <input type="number" id="code_sem" placeholder="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="calc-btn" onclick="calculateGPA()">Calculate Result</button>
+
+        <div id="results-section">
+            <div class="results-card">
+                <h3 style="margin-bottom: 20px; font-size: 1.5rem;">Subject Grades</h3>
+                <div class="results-grid">
+                    <div class="result-item"><span>PSUP</span><strong id="res_psup">0</strong></div>
+                    <div class="result-item"><span>TEC</span><strong id="res_tec">0</strong></div>
+                    <div class="result-item"><span>EP</span><strong id="res_ep">0</strong></div>
+                    <div class="result-item"><span>EGD</span><strong id="res_egd">0</strong></div>
+                    <div class="result-item"><span>ES</span><strong id="res_es">0</strong></div>
+                    <div class="result-item"><span>CS</span><strong id="res_cs">0</strong></div>
+                    <div class="result-item"><span>CODE</span><strong id="res_code">0</strong></div>
+                </div>
+                
+                <div class="chart-container" style="position: relative; height: 300px; width: 100%; margin-top: 30px; margin-bottom: 20px;">
+                    <canvas id="gradesChart"></canvas>
+                </div>
+
+                <!-- Stats Breakdown / Percentage -->
+                <div class="stats-card">
+                    <h4 class="stats-title">Performance Stats</h4>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">Total Score</span>
+                            <strong class="stat-value" id="res_total">0 / 0</strong>
+                        </div>
+                        <div class="stat-box percentage-box">
+                            <span class="stat-label">Overall Percentage</span>
+                            <strong class="stat-value" id="res_percentage">0%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="final-grade">
+                    <div>
+                        <div class="label">Weighted SGPA Score</div>
+                        <span id="res_final">0</span>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+                    <button class="calc-btn" style="background: linear-gradient(135deg, #10b981, #3b82f6); width: auto; padding: 12px 30px; display: inline-block; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);" onclick="downloadPDF()">Download Result PDF</button>
+                </div>
+                <div class="grade-note">
+                    <strong>Note:</strong> This is only a minimum estimate of your CGPA. It is an absolute grade, not a
+                    relative grade. It's not final, and your GPA will likely increase!
+                </div>
+            </div>
+        </div>
+        </div> <!-- End Calculator Section -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="gpa_calculator.js"></script>
+</body>
+
+</html>
